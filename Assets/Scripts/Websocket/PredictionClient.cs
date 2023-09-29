@@ -13,7 +13,7 @@ public class PredictionClient : MonoBehaviour
         predictionRequester.Start();
     }
 
-    public void Predict(Color32[] input, Action<float[]> onOutputReceived, Action<Exception> fallback)
+    public void Predict(float[] input, Action<float[]> onOutputReceived, Action<Exception> fallback)
     {
         print("Predictedd");
         predictionRequester.SetOnTextReceivedListener(onOutputReceived, fallback);

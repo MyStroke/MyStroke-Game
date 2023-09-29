@@ -47,7 +47,7 @@ public class PredictionRequester : RunAbleThread
         NetMQConfig.Cleanup(); // this line is needed to prevent unity freeze after one use, not sure why yet
     }
 
-    public void SendInput(Color32[] input)
+    public void SendInput(float[] input)
     {
         try
         {

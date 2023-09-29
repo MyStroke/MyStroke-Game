@@ -9,9 +9,8 @@ using TMPro;
 public class CameraScript : MonoBehaviour
 {   
     public WebCamTexture tex;
-    public Color32[] input;
+    public float[] input;
     public PredictionClient client = new PredictionClient();
-    public Testing testingg = new Testing();
     private string prediction = "Pred";
 
     private RawImage _rawImage;
@@ -23,6 +22,8 @@ public class CameraScript : MonoBehaviour
         _rawImage = GameObject.Find("RawImage").GetComponent<RawImage>();
         Pred_Button = GameObject.Find("Toggle").GetComponent<Button>();
         PredictionText = GameObject.Find("Predictions").GetComponent<TextMeshProUGUI>();
+
+        Pred_Button.onClick.AddListener(Predict);
 
         WebCamDevice[] devices = WebCamTexture.devices;
 
@@ -45,26 +46,16 @@ public class CameraScript : MonoBehaviour
     void Update()
     {
         PredictionText.text = prediction;
-        testingg.Test();
-        // Pred_Button.onClick.AddListener(Predict);
-        if (client) {
-            Debug.Log("Client found");
-            // client.Predict(input, output , error);
-        } else {
-            Debug.Log("No Client found");
-        }
-
+        
     }
 
     
     private void Predict()
     {
         // print("predicted");
-        input = new Color32[tex.width * tex.height];
-        // print(tex.width);
+        input = new float[tex.width * tex.height];
+        print(tex.width + " " +tex.height);
         // print("Input"+input);
-        
-        // client.Predict(input, output , error);
         if (client) {
             client.Predict(input, output , error);
         } else {
