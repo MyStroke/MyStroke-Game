@@ -1,23 +1,25 @@
 using UnityEngine;
-// using Firebase.Firestore;
+using System.Collections;
 using System.Collections.Generic;
+using Proyecto26;
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
-
-    // FirebaseFirestore db;
     Dictionary<string, object> score;
     private CharacterController character;
     private Vector3 direction;
     private int jumpscore = 0;
+
+    // score database
+    private string newDocumentName = "score_" + System.Guid.NewGuid().ToString();
+    private string databaseURL = "https://yrc-mystroke-default-rtdb.asia-southeast1.firebasedatabase.app/";
 
     public float jumpForce = 8f;
     public float gravity = 9.81f * 2f;
 
     private void Awake()
     {
-        // db = FirebaseFirestore.DefaultInstance;
         character = GetComponent<CharacterController>();
     }
 
@@ -34,40 +36,32 @@ public class Player : MonoBehaviour
         {
             direction = Vector3.down;
 
-            if (Input.GetMouseButtonDown(0)) {
+            if (Input.GetMouseButtonDown(0))
+            {
                 direction = Vector3.up * jumpForce;
                 jumpscore++;
-                // Updatescore();
+                Database(); // save score to database
             }
         }
 
         character.Move(direction * Time.deltaTime);
     }
 
-    // private void Updatescore() {
-    //     string newDocumentName = "score_" + System.Guid.NewGuid().ToString();
-    //     DocumentReference docRef = db.Collection("user-score").Document("XWffAwRUY1X5WNXufZ8q");
-    //     score = new Dictionary<string, object>
-    //     {
-    //         { newDocumentName, jumpscore }
-    //     };
-    //     docRef.UpdateAsync(score).ContinueWith(task => {
-    //         if (task.IsCompleted)
-    //         {
-    //             Debug.Log("Score updated");
-    //         }
-
-    //         else {
-    //             Debug.Log("Score not updated");
-    //         }
-    //     });
-    // }
+    // save score to database
+    private void Database()
+    {
+        score = new Dictionary<string, object>();
+        score["score"] = jumpscore;
+        RestClient.Post(databaseURL + newDocumentName + ".json", score)
+        .Then(response => Debug.Log("Score saved to database " + response.Text))
+        .Catch(error => Debug.Log(error.Message));
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle")) {
+        if (other.CompareTag("Obstacle"))
+        {
             FindFirstObjectByType<GameManager>().GameOver();
         }
     }
-
 }
