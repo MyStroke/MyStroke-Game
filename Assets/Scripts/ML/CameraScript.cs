@@ -9,15 +9,64 @@ using System.Runtime.InteropServices;
 
 public class CameraScript : MonoBehaviour
 {   
-    public WebCamTexture tex;
-    public Color32[] input;
-    public byte[] input_byte;
+    private WebCamTexture tex;
+    private Color32[] input;
+    private byte[] input_byte;
     public API api;
+    public bool Black;
+    public string dirPath;
     [SerializeField] RawImage _rawImage;
     [SerializeField] Button Pred_Button;
+    
     void Start()
     {
-        Pred_Button.onClick.AddListener(Predict);
+        dirPath = Application.dataPath + "/../SaveImages/";
+
+        if(!System.IO.Directory.Exists(dirPath)) {
+            System.IO.Directory.CreateDirectory(dirPath);
+        }
+
+        CameraCheck();
+        StartCoroutine(Predict());
+    }
+
+    void Update()
+    {
+    
+    }
+
+    private IEnumerator Predict()
+    {
+        while(true)
+        {
+            
+            // print("predicted");
+            // input = new Color32[tex.width * tex.height];
+            Debug.Log("shape "+ tex.width + " " +tex.height);
+            // input_byte = Color32ArrayToByteArray(input);
+            // foreach( var bytee in input_byte ) { Debug.Log( bytee ); }
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(1f);
+
+            Texture2D frame = new Texture2D(tex.width, tex.height);
+            frame.SetPixels32(tex.GetPixels32());
+            // Debug.Log("Black :"+Black);
+            frame.Apply();
+            // Black = IsImageMostlyBlack(frame);
+
+            // if(Black == true)
+            // {
+            //     CameraCheck();
+            // }
+            
+            // Convert the frame to a byte array (PNG format in this case)
+            byte[] imageBytes = frame.EncodeToPNG();
+            System.IO.File.WriteAllBytes(dirPath + "Image" + ".png", imageBytes);
+            api.GenerateRequest(imageBytes);
+        }
+    }
+    private void CameraCheck()
+    {
         WebCamDevice[] devices = WebCamTexture.devices;
 
         // for debugging purposes, prints available devices to the console
@@ -30,34 +79,46 @@ public class CameraScript : MonoBehaviour
 
         // assuming the first available WebCam is desired
 
-        tex = new WebCamTexture(devices[0].name,224, 224, 30);
-        Debug.Log(tex.width + " " +tex.height);
+        tex = new WebCamTexture(devices[0].name,320,240,30);
+        Debug.Log("Use "+devices[0].name);
         //rend.material.mainTexture = tex;
         this._rawImage.texture = tex;
         tex.Play();
-        Texture2D frame = new Texture2D(tex.width, tex.height);
     }
 
-    void Update()
-    {
-    
-    }
+    // public bool IsImageMostlyBlack(Texture2D texture, float blackThreshold = 1.0f)
+    // {
+    //     // Create a new Texture2D and load the image data.
 
-    
-    private void Predict()
-    {
-        // print("predicted");
-        // input = new Color32[tex.width * tex.height];
-        // print(tex.width + " " +tex.height);
-        // input_byte = Color32ArrayToByteArray(input);
-        // foreach( var bytee in input_byte ) { Debug.Log( bytee ); }
-        Texture2D frame = new Texture2D(tex.width, tex.height);
-        frame.SetPixels32(tex.GetPixels32());
-        frame.Apply();
+    //     int width = texture.width;
+    //     int height = texture.height;
+    //     // Initialize counters for black and total pixels.
+    //     int blackPixelCount = 0;
+    //     int totalPixelCount = width * height;
 
-        // Convert the frame to a byte array (PNG format in this case)
-        byte[] imageBytes = frame.EncodeToPNG();
+    //     // Loop through each pixel.
+    //     for (int x = 0; x < width; x++)
+    //     {
+    //         for (int y = 0; y < height; y++)
+    //         {
+    //             // Get the color of the pixel at (x, y).
+    //             Color pixelColor = texture.GetPixel(x, y);
+    //             // Check if the pixel is black (you can adjust the threshold as needed).
+    //             if (pixelColor.r < blackThreshold && pixelColor.g < blackThreshold && pixelColor.b < blackThreshold)
+    //             {
+                    
+    //                 blackPixelCount++;
+    //             }
+            
+                
+    //         }
+    //     }
 
-        api.GenerateRequest(imageBytes);
-    }
+    //     // Calculate the percentage of black pixels.
+    //     float blackPercentage = (float)blackPixelCount / totalPixelCount;
+    //     Debug.Log(blackPercentage);
+
+    //     // You can adjust the threshold percentage as needed.
+    //     return blackPercentage >= blackThreshold;
+    // }
 }

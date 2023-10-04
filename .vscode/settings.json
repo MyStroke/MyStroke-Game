@@ -15,5 +15,5 @@
         "Temp/": true,
         "UIElementsSchema/": true
     },
-    "dotnet.defaultSolution": "unity-dino-game-tutorial.sln"
+    "dotnet.defaultSolution": "MyStroke_Game.sln"
 }
