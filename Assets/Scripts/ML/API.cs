@@ -29,4 +29,8 @@ public class API: MonoBehaviour {
             }
         }
     }
+
+    public string GetPrediction(){
+        return PredictionText.text;
+    }
 }

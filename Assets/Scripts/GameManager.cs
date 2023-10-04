@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public float gameSpeedIncrease = 0.1f;
     public float gameSpeed { get; private set; }
 
+    private int predictscore = 0;
+    private API data;
+
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI hiscoreText;
     public TextMeshProUGUI gameOverText;
@@ -23,16 +26,20 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null) {
+        if (Instance != null)
+        {
             DestroyImmediate(gameObject);
-        } else {
+        }
+        else
+        {
             Instance = this;
         }
     }
 
     private void OnDestroy()
     {
-        if (Instance == this) {
+        if (Instance == this)
+        {
             Instance = null;
         }
     }
@@ -41,6 +48,7 @@ public class GameManager : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         spawner = FindObjectOfType<Spawner>();
+        data = FindObjectOfType<API>();
 
         NewGame();
     }
@@ -49,7 +57,8 @@ public class GameManager : MonoBehaviour
     {
         Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
 
-        foreach (var obstacle in obstacles) {
+        foreach (var obstacle in obstacles)
+        {
             Destroy(obstacle.gameObject);
         }
 
@@ -96,6 +105,23 @@ public class GameManager : MonoBehaviour
         }
 
         hiscoreText.text = Mathf.FloorToInt(hiscore).ToString("D5");
+    }
+
+    public void Objprocess()
+    {
+        gameSpeed = 0f;
+        enabled = false;
+
+        // if (data.GetPrediction() == "Fist")
+        // {
+        //     gameSpeed = initialGameSpeed;
+        //     enabled = true;
+        //     DestroyObstacles();
+        // }
+        // else
+        // {
+        //     predictscore = 0;
+        // }
     }
 
 }
