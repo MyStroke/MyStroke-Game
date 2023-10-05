@@ -11,9 +11,10 @@ public class GameManager : MonoBehaviour
     public float gameSpeedIncrease = 0.1f;
     public float gameSpeed { get; private set; }
 
-    private int predictscore = 0;
     private API data;
     private Obstacle obj;
+    private popup popupbox;
+    private Countdown countdown;
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI hiscoreText;
@@ -50,6 +51,8 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<Player>();
         spawner = FindObjectOfType<Spawner>();
         data = FindObjectOfType<API>();
+        popupbox = FindObjectOfType<popup>();
+        countdown = FindObjectOfType<Countdown>();
 
         NewGame();
     }
@@ -110,19 +113,19 @@ public class GameManager : MonoBehaviour
 
     public void Objprocess()
     {
-        // gameSpeed = 0f;
-        // enabled = false;
-        // spawner.gameObject.SetActive(false);
-        DestroyObstacles();
+        gameSpeed = 0f;
+        enabled = false;
+        spawner.gameObject.SetActive(false);
+        popupbox.popupbox();
 
         // if (data.GetPrediction() == "Fist") {
         //     gameSpeed = initialGameSpeed;
         //     enabled = true;
         //     DestroyObstacles();
-        //     player.gameObject.SetActive(true);
         //     spawner.gameObject.SetActive(true);
         //     // GameOver();
         // }
+
     }
 
     public void DestroyObstacles()
