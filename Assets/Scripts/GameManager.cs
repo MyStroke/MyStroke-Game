@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     private int predictscore = 0;
     private API data;
+    private Obstacle obj;
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI hiscoreText;
@@ -109,19 +110,30 @@ public class GameManager : MonoBehaviour
 
     public void Objprocess()
     {
-        gameSpeed = 0f;
-        enabled = false;
+        // gameSpeed = 0f;
+        // enabled = false;
+        // spawner.gameObject.SetActive(false);
+        DestroyObstacles();
 
-        // if (data.GetPrediction() == "Fist")
-        // {
+        // if (data.GetPrediction() == "Fist") {
         //     gameSpeed = initialGameSpeed;
         //     enabled = true;
         //     DestroyObstacles();
+        //     player.gameObject.SetActive(true);
+        //     spawner.gameObject.SetActive(true);
+        //     // GameOver();
         // }
-        // else
-        // {
-        //     predictscore = 0;
-        // }
+    }
+
+    public void DestroyObstacles()
+    {
+        Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
+
+        foreach (var obstacle in obstacles)
+        {
+            Destroy(obstacle.gameObject);
+        }
+
     }
 
 }
