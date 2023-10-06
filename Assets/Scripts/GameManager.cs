@@ -118,15 +118,6 @@ public class GameManager : MonoBehaviour
         enabled = false;
         spawner.gameObject.SetActive(false);
         popupbox.popupbox();
-
-        // if (data.GetPrediction() == "Fist") {
-        //     gameSpeed = initialGameSpeed;
-        //     enabled = true;
-        //     DestroyObstacles();
-        //     spawner.gameObject.SetActive(true);
-        //     // GameOver();
-        // }
-
     }
 
     public void DestroyObstacles()
@@ -138,6 +129,21 @@ public class GameManager : MonoBehaviour
             Destroy(obstacle.gameObject);
         }
 
+    }
+
+    public void ContinueGame()
+    {
+        gameSpeed = initialGameSpeed;
+        enabled = true;
+        
+        DestroyObstacles();
+        player.gameObject.SetActive(true);
+        spawner.gameObject.SetActive(true);
+        gameOverText.gameObject.SetActive(false);
+        retryButton.gameObject.SetActive(false);
+        popupbox.box.SetActive(false);
+        countdown.TimeLeft = 10;
+        countdown.TimerOn = true;
     }
 
 }

@@ -8,10 +8,13 @@ public class popup : MonoBehaviour
     public GameObject box;
 
     private Countdown countdown;
+    private GameManager gameManager;
 
     private void Start()
     {
         countdown = FindObjectOfType<Countdown>();
+        gameManager = FindObjectOfType<GameManager>();
+
         box.SetActive(false);
     }
 
@@ -23,6 +26,7 @@ public class popup : MonoBehaviour
     public void popupbox()
     {
         box.SetActive(true);
+        gameManager.enabled = false;
         countdown.TimerOn = true;
     }
 

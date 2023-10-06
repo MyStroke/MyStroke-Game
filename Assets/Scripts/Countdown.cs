@@ -11,10 +11,13 @@ public class Countdown : MonoBehaviour
 
     // import all files
     private GameManager gameManager;
+    private API data;
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        data = FindObjectOfType<API>();
+
         if (TimerTxt != null)
         {
             TimerTxt.text = "10";
@@ -29,6 +32,13 @@ public class Countdown : MonoBehaviour
             {
                 TimeLeft -= Time.deltaTime;
                 updateTimer(TimeLeft);
+
+                // ถ้าทำมือถือเป็น Fist
+                if (data.GetPrediction() != null && data.GetPrediction() == "Fist")
+                {
+                    gameManager.ContinueGame();
+                }
+
             }
             else
             {
