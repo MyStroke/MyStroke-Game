@@ -11,10 +11,12 @@ public class GameManager : MonoBehaviour
     public float gameSpeedIncrease = 0.1f;
     public float gameSpeed { get; private set; }
 
+    // import all files
     private API data;
     private Obstacle obj;
     private popup popupbox;
     private Countdown countdown;
+    private RandomML randomML;
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI hiscoreText;
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour
         data = FindObjectOfType<API>();
         popupbox = FindObjectOfType<popup>();
         countdown = FindObjectOfType<Countdown>();
+        randomML = FindObjectOfType<RandomML>();
 
         NewGame();
     }
@@ -115,7 +118,6 @@ public class GameManager : MonoBehaviour
     public void Objprocess()
     {
         gameSpeed = 0f;
-        enabled = false;
         spawner.gameObject.SetActive(false);
         popupbox.popupbox();
     }
@@ -135,7 +137,6 @@ public class GameManager : MonoBehaviour
     {
         gameSpeed = initialGameSpeed;
         enabled = true;
-        
         DestroyObstacles();
         player.gameObject.SetActive(true);
         spawner.gameObject.SetActive(true);
@@ -143,7 +144,6 @@ public class GameManager : MonoBehaviour
         retryButton.gameObject.SetActive(false);
         popupbox.box.SetActive(false);
         countdown.TimeLeft = 10;
-        countdown.TimerOn = true;
     }
 
 }
