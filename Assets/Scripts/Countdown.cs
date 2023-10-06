@@ -9,8 +9,12 @@ public class Countdown : MonoBehaviour
     public bool TimerOn = false;
     public TextMeshProUGUI TimerTxt;
 
+    // import all files
+    private GameManager gameManager;
+
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         if (TimerTxt != null)
         {
             TimerTxt.text = "10";
@@ -28,8 +32,9 @@ public class Countdown : MonoBehaviour
             }
             else
             {
-                TimeLeft = 0;
+                TimeLeft = 10;
                 TimerOn = false;
+                gameManager.GameOver();
             }
         }
     }
