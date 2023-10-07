@@ -23,12 +23,12 @@ using Firebase.Extensions;
     [Serializable]
     public class PlayerData : MonoBehaviour
     {
-         public uint PlayerId { 
-            get => playerId;
-            set => playerId = value;
-        }
-        [SerializeField]
-        private uint playerId;
+        //  public uint PlayerId { 
+        //     get => playerId;
+        //     set => playerId = value;
+        // }
+        // [SerializeField]
+        // private uint playerId;
 
         public uint Score 
         { 
@@ -37,18 +37,18 @@ using Firebase.Extensions;
         }
         [SerializeField] private uint score;
 
-        public uint Acc 
+        public string Time
         { 
-            get => acc;
-            set => acc = value;
+            get => time;
+            set => time = value;
         }
-        [SerializeField] private uint acc;
-        public PlayerData()
-        {
-            // var random = new System.Random((int) DateTime.Now.Ticks & 0x0000FFFF);
-            // PlayerId = (uint) random.Next();
-            PlayerId = 999;
-        }
+        [SerializeField] private string time;
+        // public PlayerData()
+        // {
+        //     // var random = new System.Random((int) DateTime.Now.Ticks & 0x0000FFFF);
+        //     // PlayerId = (uint) random.Next();
+        //     PlayerId = 999;
+        // }
     public void SendProfileToServer()
         {
             Debug.Log("Clicked "+this);
@@ -59,14 +59,14 @@ using Firebase.Extensions;
             Debug.Log("Added data to the Player document in the Gameplay collection. : "+this);
 #endif
         }
-        public override string ToString()
-        {
-            var stringBuilder = new StringBuilder();
-            stringBuilder.Append("PlayerId = " + playerId);
-            stringBuilder.Append(" - Score = " + score);
-            stringBuilder.Append(" - Acc = " + acc);
-            return stringBuilder.ToString();
-        }
+        // public override string ToString()
+        // {
+        //     var stringBuilder = new StringBuilder();
+        //     stringBuilder.Append("PlayerId = " + playerId);
+        //     stringBuilder.Append(" - Score = " + score);
+        //     stringBuilder.Append(" - Acc = " + acc);
+        //     return stringBuilder.ToString();
+        // }
         public void DisplayInfo(string info){
             Debug.Log(info);
         }

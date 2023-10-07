@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class DataTest : MonoBehaviour
 {
@@ -17,8 +18,8 @@ public class DataTest : MonoBehaviour
 
     public void UpdateScore()
     {
-        plrdata.Score = 10;
-        plrdata.Acc = 30;
+        plrdata.Score = (uint) Random.Range(0,100);
+        plrdata.Time = System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
         plrdata.SendProfileToServer();
     }
     // Update is called once per frame
