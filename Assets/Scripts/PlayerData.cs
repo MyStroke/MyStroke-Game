@@ -55,7 +55,7 @@ using Firebase.Extensions;
 
 #if UNITY_WEBGL || !UNITY_EDITOR
             string jsonData = JsonUtility.ToJson(this);
-            FirebaseWebGLBridge.FirebaseFirestore.AddDocument("user-score", jsonData, gameObject.name, "DisplayInfo", "DisplayErrorObject");
+            FirebaseWebGLBridge.FirebaseFirestore.AddElementInArrayField("user-score", "Doc-score", "score", jsonData, gameObject.name, "DisplayInfo", "DisplayErrorObject");
             Debug.Log("Added data to the Player document in the Gameplay collection. : "+this);
 #endif
         }
