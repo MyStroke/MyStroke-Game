@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Text;
+using Firebase.Firestore;
 using FirebaseWebGLBridge = FirebaseWebGL.Scripts.FirebaseBridge;
 using FirebaseWebGLUtils = FirebaseWebGL.Examples.Utils;
 using FirebaseWebGLObjects = FirebaseWebGL.Scripts.Objects;
@@ -23,6 +24,13 @@ using Firebase.Extensions;
 [Serializable]
 public class PlayerData : MonoBehaviour
 {
+
+    FirebaseFirestore db;
+
+    // import all files
+    private GameManager gameManager;
+    private Dictionary<string, object> newScoreData;
+
     //  public uint PlayerId { 
     //     get => playerId;
     //     set => playerId = value;
@@ -30,13 +38,62 @@ public class PlayerData : MonoBehaviour
     // [SerializeField]
     // private uint playerId;
 
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
+    private void Awake()
+    {
+        db = FirebaseFirestore.DefaultInstance;
+    }
+
+    // Update score from Unity Editor
+    public void UpdateScore()
+    {
+        string newDocumentName = "score_" + System.Guid.NewGuid().ToString();
+        DocumentReference docRef = db.Collection("user-score").Document("Doc-score");
+
+        // ดึงข้อมูลปัจจุบันในคอลเลกชัน "score"
+        docRef.GetSnapshotAsync().ContinueWith(task =>
+        {
+            if (task.IsCompleted)
+            {
+                DocumentSnapshot snapshot = task.Result;
+
+                // สร้างรายการคะแนนใหม่
+                Dictionary<string, object> newScoreData = new Dictionary<string, object>
+                {
+                    { "score", gameManager.scoreValue },
+                    { "time", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") }
+                };
+
+                Dictionary<string, object> scoreData = snapshot.ToDictionary();
+                scoreData.Add(newDocumentName, newScoreData);
+
+                // อัปเดตคอลเลกชัน "score" ใหม่
+                docRef.SetAsync(scoreData).ContinueWith(updateTask =>
+                {
+                    if (updateTask.IsCompleted)
+                    {
+                        Debug.Log("Score updated");
+                    }
+                    else
+                    {
+                        Debug.Log("Score not updated");
+                    }
+                });
+            }
+        });
+    }
+
     public uint Score
     {
-        get => score;
-        set => score = value;
+        get => playerScore;
+        set => playerScore = value;
     }
-    
-    [SerializeField] private uint score;
+
+    [SerializeField] private uint playerScore;
 
     public string Time
     {

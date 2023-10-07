@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public float initialGameSpeed = 5f;
     public float gameSpeedIncrease = 0.1f;
     public float gameSpeed { get; private set; }
+    public int scoreValue = 0;
 
     // import all files
     private API data;
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     private popup popupbox;
     private Countdown countdown;
     private RandomML randomML;
+    private PlayerData plrdata;
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI hiscoreText;
@@ -56,6 +58,7 @@ public class GameManager : MonoBehaviour
         popupbox = FindObjectOfType<popup>();
         countdown = FindObjectOfType<Countdown>();
         randomML = FindObjectOfType<RandomML>();
+        plrdata = FindObjectOfType<PlayerData>();
 
         NewGame();
     }
@@ -93,26 +96,28 @@ public class GameManager : MonoBehaviour
         retryButton.gameObject.SetActive(true);
 
         UpdateHiscore();
+        // plrdata.SendProfileToServer(); // Update from WebGL
+        plrdata.UpdateScore(); // Update from Editor
     }
 
     private void Update()
     {
         gameSpeed += gameSpeedIncrease * Time.deltaTime;
         score += gameSpeed * Time.deltaTime;
-        scoreText.text = Mathf.FloorToInt(score).ToString("D5");
+        scoreText.text = scoreValue.ToString("D2");
     }
 
     private void UpdateHiscore()
     {
         float hiscore = PlayerPrefs.GetFloat("hiscore", 0);
 
-        if (score > hiscore)
+        if (scoreValue > hiscore)
         {
-            hiscore = score;
+            hiscore = scoreValue;
             PlayerPrefs.SetFloat("hiscore", hiscore);
         }
 
-        hiscoreText.text = Mathf.FloorToInt(hiscore).ToString("D5");
+        hiscoreText.text = Mathf.FloorToInt(hiscore).ToString("D2");
     }
 
     public void Objprocess()
@@ -137,6 +142,7 @@ public class GameManager : MonoBehaviour
     {
         gameSpeed = initialGameSpeed;
         enabled = true;
+        scoreValue += 1;
         DestroyObstacles();
         player.gameObject.SetActive(true);
         spawner.gameObject.SetActive(true);
