@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Text;
-using Firebase.Firestore;
 using FirebaseWebGLBridge = FirebaseWebGL.Scripts.FirebaseBridge;
 using FirebaseWebGLUtils = FirebaseWebGL.Examples.Utils;
 using FirebaseWebGLObjects = FirebaseWebGL.Scripts.Objects;
@@ -24,11 +23,13 @@ using Firebase.Extensions;
 [Serializable]
 public class PlayerData : MonoBehaviour
 {
-
-    FirebaseFirestore db;
-
     // import all files
     private GameManager gameManager;
+
+    #if !UNITY_WEBGL || UNITY_EDITOR
+        FirebaseFirestore db;
+    #endif
+
     private Dictionary<string, object> newScoreData;
 
     //  public uint PlayerId { 
@@ -38,6 +39,7 @@ public class PlayerData : MonoBehaviour
     // [SerializeField]
     // private uint playerId;
 
+    #if !UNITY_WEBGL || UNITY_EDITOR
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -86,6 +88,7 @@ public class PlayerData : MonoBehaviour
             }
         });
     }
+    #endif
 
     public uint Score
     {
