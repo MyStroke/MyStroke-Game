@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private Countdown countdown;
     private RandomML randomML;
     private PlayerData plrdata;
+    private DataTest datatest;
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI hiscoreText;
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
         countdown = FindObjectOfType<Countdown>();
         randomML = FindObjectOfType<RandomML>();
         plrdata = FindObjectOfType<PlayerData>();
+        datatest = FindObjectOfType<DataTest>();
 
         NewGame();
     }
@@ -96,7 +98,7 @@ public class GameManager : MonoBehaviour
         retryButton.gameObject.SetActive(true);
 
         UpdateHiscore();
-        plrdata.SendProfileToServer(); // Update from WebGL
+        datatest.UpdateScore();
     }
 
     private void Update()
