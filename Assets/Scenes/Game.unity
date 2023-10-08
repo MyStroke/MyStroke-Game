@@ -425,12 +425,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objects:
-  - prefab: {fileID: 9111235999010403720, guid: ce7211bb8f2860f41b8a7e7395de2c5b, type: 3}
-    spawnChance: 0.37
-  - prefab: {fileID: 3554295633068608032, guid: ad9ed36a50c4ba24eb1a3370c6703ba3, type: 3}
-    spawnChance: 0.35
-  - prefab: {fileID: 6134549672178375514, guid: b9eec0f7332e5054e948886e935541a4, type: 3}
-    spawnChance: 0.38
+  - prefab: {fileID: 6449301614016544205, guid: 5b3e5f4e254a743c281bf93a87c3cf8e, type: 3}
+    spawnChance: 0.29
+  - prefab: {fileID: 7209218498423431234, guid: d65a32aba20d342f1970683d863db7da, type: 3}
+    spawnChance: 0.2
+  - prefab: {fileID: 5279622449616454829, guid: 5be6247205b844173bbee96248243ee4, type: 3}
+    spawnChance: 0.13
+  - prefab: {fileID: 5449917119213628848, guid: b1c5d4110ff6b46618ae22e70bcd9594, type: 3}
+    spawnChance: 0.22
+  - prefab: {fileID: 2994558252110268335, guid: 9ea890101053b4de79e2e1ca944d6371, type: 3}
+    spawnChance: 0.16
   minSpawnRate: 1
   maxSpawnRate: 1.5
 --- !u!1 &333806624
