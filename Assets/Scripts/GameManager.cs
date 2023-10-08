@@ -96,8 +96,7 @@ public class GameManager : MonoBehaviour
         retryButton.gameObject.SetActive(true);
 
         UpdateHiscore();
-        // plrdata.SendProfileToServer(); // Update from WebGL
-        plrdata.UpdateScore(); // Update from Editor
+        plrdata.SendProfileToServer(); // Update from WebGL
     }
 
     private void Update()

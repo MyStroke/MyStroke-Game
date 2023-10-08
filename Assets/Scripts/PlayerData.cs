@@ -51,9 +51,37 @@ public class PlayerData : MonoBehaviour
     }
 
     // Update score from Unity Editor
-    public void UpdateScore()
+    #endif
+
+    public uint Score
     {
-        string newDocumentName = "score_" + System.Guid.NewGuid().ToString();
+        get => playerScore;
+        set => playerScore = value;
+    }
+
+    [SerializeField] private uint playerScore;
+
+    public string Time
+    {
+        get => time;
+        set => time = value;
+    }
+
+    [SerializeField] private string time;
+    // public PlayerData()
+    // {
+    //     // var random = new System.Random((int) DateTime.Now.Ticks & 0x0000FFFF);
+    //     // PlayerId = (uint) random.Next();
+    //     PlayerId = 999;
+    // }
+
+    public void SendProfileToServer()
+    {
+        Debug.Log("Clicked " + this);
+#if !UNITY_WEBGL || UNITY_EDITOR
+
+        
+         string newDocumentName = "score_" + System.Guid.NewGuid().ToString();
         DocumentReference docRef = db.Collection("user-score").Document("Doc-score");
 
         // ดึงข้อมูลปัจจุบันในคอลเลกชัน "score"
@@ -87,36 +115,8 @@ public class PlayerData : MonoBehaviour
                 });
             }
         });
-    }
-    #endif
 
-    public uint Score
-    {
-        get => playerScore;
-        set => playerScore = value;
-    }
-
-    [SerializeField] private uint playerScore;
-
-    public string Time
-    {
-        get => time;
-        set => time = value;
-    }
-
-    [SerializeField] private string time;
-    // public PlayerData()
-    // {
-    //     // var random = new System.Random((int) DateTime.Now.Ticks & 0x0000FFFF);
-    //     // PlayerId = (uint) random.Next();
-    //     PlayerId = 999;
-    // }
-
-    public void SendProfileToServer()
-    {
-        Debug.Log("Clicked " + this);
-
-#if UNITY_WEBGL || !UNITY_EDITOR
+#else 
         string jsonData = JsonUtility.ToJson(this);
         FirebaseWebGLBridge.FirebaseFirestore.AddElementInArrayField("user-score", "Doc-score", "score", jsonData, gameObject.name, "DisplayInfo", "DisplayErrorObject");
         Debug.Log("Added data to the Player document in the Gameplay collection. : " + this);
