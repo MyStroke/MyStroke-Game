@@ -119,7 +119,7 @@ public class PlayerData : MonoBehaviour
 #else 
         string jsonData = JsonUtility.ToJson(this);
         FirebaseWebGLBridge.FirebaseFirestore.AddElementInArrayField("user-score", "Doc-score", "score", jsonData, gameObject.name, "DisplayInfo", "DisplayErrorObject");
-        Debug.Log("Added data to the Player document in the Gameplay collection. : " + this);
+        Debug.Log("Added data to document : " + this);
 
 #endif
     }
