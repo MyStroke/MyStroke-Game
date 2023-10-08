@@ -4,11 +4,9 @@ using System.Collections.Generic;
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
-
-    Dictionary<string, object> score;
+    public Animator animator { get; private set; }
     private CharacterController character;
     private Vector3 direction;
-    private int jumpscore = 0;
 
     public float jumpForce = 8f;
     public float gravity = 9.81f * 2f;
@@ -16,6 +14,9 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         character = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+
+        animator.Play("HeroKnight_Run");
     }
 
     private void OnEnable()
@@ -30,12 +31,6 @@ public class Player : MonoBehaviour
         if (character.isGrounded)
         {
             direction = Vector3.down;
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                direction = Vector3.up * jumpForce;
-                jumpscore++;
-            }
         }
 
         character.Move(direction * Time.deltaTime);
@@ -46,7 +41,6 @@ public class Player : MonoBehaviour
         if (other.CompareTag("Obstacle"))
         {
             GameManager.Instance.Objprocess();
-            // GameManager.Instance.GameOver();
         }
     }
 

@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
         gameSpeed = 0f;
         spawner.gameObject.SetActive(false);
         popupbox.popupbox();
+        player.animator.Play("HeroKnight_Attack1");
     }
 
     public void DestroyObstacles()
@@ -142,6 +143,7 @@ public class GameManager : MonoBehaviour
     {
         gameSpeed = initialGameSpeed;
         enabled = true;
+        player.animator.Play("HeroKnight_Run");
         scoreValue += 1;
         DestroyObstacles();
         player.gameObject.SetActive(true);
