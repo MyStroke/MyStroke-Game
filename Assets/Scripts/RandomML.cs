@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class RandomML : MonoBehaviour
@@ -15,6 +16,8 @@ public class RandomML : MonoBehaviour
 
     // TextUI for ML
     public TextMeshProUGUI TextML;
+    public Sprite [] dictimage;
+    public Image image;
 
     void Start()
     {
@@ -28,14 +31,15 @@ public class RandomML : MonoBehaviour
 
     public void RandomMLBox()
     {
-        randomLabel = RandomString();
+        int randomIndex = RandomML2();
+        randomLabel = labels[randomIndex];
         TextML.text = randomLabel;
+        image.sprite = dictimage[randomIndex];
     }
 
-
-    private static string RandomString()
+    private int RandomML2()
     {
         int index = rnd.Next(labels.Length);
-        return labels[index];
+        return index;
     }
 }
