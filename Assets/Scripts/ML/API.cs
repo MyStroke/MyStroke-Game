@@ -6,7 +6,7 @@ using TMPro;
 using SimpleJSON;
 public class API: MonoBehaviour {
     [SerializeField] TextMeshProUGUI PredictionText;
-    private const string URL = "http://localhost:8000/predict";
+    private const string URL = "http://oofypc9000.thddns.net:2320/predict";
     private string[] labels = {"Bare", "Fist", "Index-Off", "Ring-Off", "Thumb-Off"};
     public void GenerateRequest (byte[] ImageByte) {
         WWWForm form = new WWWForm();
