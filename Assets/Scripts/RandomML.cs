@@ -6,7 +6,7 @@ using TMPro;
 
 public class RandomML : MonoBehaviour
 {
-    private static string[] labels = { "Bare", "Fist", "Index-Off", "Ring-Off", "Thumb-Off" };
+    private static string[] labels = { "Five Fingertips Touch", "Hand Close", "Hand Open", "Relax Gesture", "Thumb Touches Index Finger", "Ulnar Deviation", "Wrist Flexion" };
     private static System.Random rnd = new System.Random();
     public string randomLabel;
 
