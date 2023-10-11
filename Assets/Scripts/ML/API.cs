@@ -23,6 +23,11 @@ public class API: MonoBehaviour {
                 Debug.Log (request.error);
             } else {
                 JSONNode prediction = JSON.Parse(request.downloadHandler.text);
+                if (prediction["prediction"] == null) {
+                    Debug.Log("Error");
+                    PredictionText.text = "Null";
+                    yield break;
+                }
                 string pred = labels[(int) prediction["argmax"]];
                 PredictionText.text = pred;
                 Debug.Log((string) prediction["argmax"]+" - "+pred);
