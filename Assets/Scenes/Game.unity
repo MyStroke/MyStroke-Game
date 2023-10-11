@@ -2526,13 +2526,13 @@ MonoBehaviour:
   randomLabel: 
   TextML: {fileID: 1621329163}
   dictimage:
-  - {fileID: 21300000, guid: 9a41f9edb1726438a8ef96f673b96f6a, type: 3}
-  - {fileID: 21300000, guid: eaf538f99aca04657a8acb6b8f71b927, type: 3}
-  - {fileID: 21300000, guid: 114cc627e632a4593bfeafe5579271e1, type: 3}
-  - {fileID: 21300000, guid: 00a39d0cf18b14ca89ad9ae34a9c5c0e, type: 3}
-  - {fileID: 21300000, guid: 77c1244a91d094525be9389bf0610d64, type: 3}
   - {fileID: 21300000, guid: 5f527f305e92f4316a21c3f9f824870a, type: 3}
+  - {fileID: 21300000, guid: 114cc627e632a4593bfeafe5579271e1, type: 3}
+  - {fileID: 21300000, guid: eaf538f99aca04657a8acb6b8f71b927, type: 3}
+  - {fileID: 21300000, guid: 77c1244a91d094525be9389bf0610d64, type: 3}
   - {fileID: 21300000, guid: 6b4a4b5e4286b40b1a675d8234c39a4f, type: 3}
+  - {fileID: 21300000, guid: 9a41f9edb1726438a8ef96f673b96f6a, type: 3}
+  - {fileID: 21300000, guid: 00a39d0cf18b14ca89ad9ae34a9c5c0e, type: 3}
   image: {fileID: 200784533}
 --- !u!1 &1622323427
 GameObject:

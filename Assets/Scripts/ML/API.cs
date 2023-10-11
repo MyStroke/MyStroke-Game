@@ -7,7 +7,7 @@ using SimpleJSON;
 public class API: MonoBehaviour {
     [SerializeField] TextMeshProUGUI PredictionText;
     private const string URL = "http://oofypc9000.thddns.net:2320/predict";
-    private string[] labels = {"Five Fingertips Touch", "Hand Close", "Hand Open", "Relax Gesture", "Thumb Touches Index Finger", "Ulnar Deviation", "Wrist Flexion"};
+    private string[] labels = {"Ulnar Deviation", "Hand Open", "Hand Close", "Thumb Touches Index Finger", "Wrist Flexion", "Five Fingertips Touch", "Relax Gesture"};
     public void GenerateRequest (byte[] ImageByte) {
         WWWForm form = new WWWForm();
         form.AddBinaryData("image", ImageByte, "image.png", "image/png");
